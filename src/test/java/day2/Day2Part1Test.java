@@ -16,7 +16,7 @@ public class Day2Part1Test implements AocCommon, Testable {
     
     @Test
     public void testDemo() {
-        var lines = readAllLines(test, challengeName());
+        var lines = readAllLines(example, challengeName());
         System.out.println(lines);
         
         
