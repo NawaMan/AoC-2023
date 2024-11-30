@@ -29,7 +29,7 @@ public class Day1Part1Test implements AocCommon, Testable {
     
     @Test
     public void testDemo() {
-        var lines = readAllLines(demo, challengeName());
+        var lines = readAllLines(test, challengeName());
         var sum   = lines.mapToInt(this::numOf).sum();
         assertAsString("142", sum);
     }
