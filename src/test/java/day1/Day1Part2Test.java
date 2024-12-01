@@ -59,14 +59,14 @@ public class Day1Part2Test implements AocCommon, Testable {
     
     @Test
     public void testExample() {
-        var lines = readAllLines(example, challenge);
+        var lines = readAllLines();
         var sum   = lines.mapToInt(this::numOf).sum();
         assertAsString("281", sum);
     }
     
     @Test
     public void testProd() {
-        var lines = readAllLines(prod, challenge);
+        var lines = readAllLines();
         var sum   = lines.mapToInt(this::numOf).sum();
         assertAsString("55413", sum);
     }
