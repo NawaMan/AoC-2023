@@ -1,38 +1,35 @@
 package dayX;
 
-import static org.junit.Assert.fail;
-
 import org.junit.Ignore;
 import org.junit.Test;
 
-import common.AocCommon;
-import common.Testable;
+import common.BaseTest;
+import functionalj.list.FuncList;
 
 @Ignore
-public class DayXPart1Test implements AocCommon, Testable {
+public class DayXPart1Test extends BaseTest {
     
+    
+    int calulate(FuncList<String> lines) {
+        return 0;
+    }
     
     //== Test ==
     
     @Test
-    public void testDemo() {
-        var lines = readAllLines(example, challengeName());
-        System.out.println(lines);
-        
-        
-        //assertAsString("", ...);
-        fail("No assertion!");
+    public void testExample() {
+        var lines = readAllLines();
+        var result = calulate(lines);
+        println(result);
+        assertAsString("", result);
     }
     
     @Test
     public void testProd() {
-        var lines = readAllLines(prod, challengeName());
-        System.out.println(lines);
-        
-        
-        
-        //assertAsString("", ...);
-        fail("No assertion!");
+        var lines = readAllLines();
+        var result = calulate(lines);
+        println(result);
+        assertAsString("", result);
     }
     
 }

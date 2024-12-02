@@ -43,6 +43,10 @@ public interface AocCommon {
         return str -> "    " + str;
     }
     
+    default void print(Object object) {
+        System.out.print(object);
+    }
+    
     default void println() {
         System.out.println();
     }
