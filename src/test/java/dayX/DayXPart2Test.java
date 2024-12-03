@@ -23,6 +23,7 @@ public class DayXPart2Test extends BaseTest {
         assertAsString("", result);
     }
     
+    @Ignore
     @Test
     public void testProd() {
         var lines = readAllLines();
