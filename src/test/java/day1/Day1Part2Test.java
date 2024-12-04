@@ -1,38 +1,25 @@
 package day1;
 
 import static functionalj.function.Func.itself;
+import static java.lang.Integer.parseInt;
+import static nullablej.nullable.Nullable.nullable;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
-import common.AocCommon;
-import common.Testable;
+import common.BaseTest;
 import functionalj.list.FuncList;
 import functionalj.map.FuncMap;
-import nullablej.nullable.Nullable;
 
-public class Day1Part2Test implements AocCommon, Testable {
+public class Day1Part2Test extends BaseTest {
     
-    final String challenge = this.getClass().getSimpleName().replaceFirst("Test$", "");
-    
-    final FuncList<String> numbers = FuncList.of(
-            "one",
-            "two",
-            "three",
-            "four",
-            "five",
-            "six",
-            "seven",
-            "eight",
-            "nine"
-    );
+    final FuncList<String> numbers = FuncList.of("one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
     
     private final AtomicInteger   numberCounter = new AtomicInteger(1);
     final FuncMap<String, String> numberToInts
             = numbers
-            .toMap(itself(), __ -> numberCounter.getAndIncrement())
-            .mapValue(String::valueOf)
+            .toMap(itself(), __ -> Integer.toString(numberCounter.getAndIncrement()))
             .toImmutableMap();
     
     final String numberText = numbers.join("|");
@@ -40,34 +27,37 @@ public class Day1Part2Test implements AocCommon, Testable {
     final String firstDigit = "^.*?([0-9]|" + numberText + ").*$";
     final String lastDigit  = "^.*([0-9]|" + numberText + ").*?$";
     
-    int numOf(String text) {
-        var digits = digitsOf(text);
-        return Integer.parseInt(digits);
+    int calculate(FuncList<String> lines) {
+        return lines
+                .mapToInt(this::extractDigits)
+                .sum();
     }
     
-    String digitsOf(String text) {
+    int extractDigits(String text) {
         var first = select(text, firstDigit);
         var last  = select(text, lastDigit);
-        return first + last;
+        return parseInt(first + last);
     }
     
     String select(String text, String pattern) {
-        var dig = text.replaceFirst(pattern, "$1");
-        var num = Nullable.of(numberToInts.get(dig)).orElse(dig);
-        return num;
+        var digit = text.replaceFirst(pattern, "$1");
+        return nullable(numberToInts.get(digit))
+                .orElse(digit);
     }
+    
+    //== Test ==
     
     @Test
     public void testExample() {
         var lines = readAllLines();
-        var sum   = lines.mapToInt(this::numOf).sum();
+        var sum   = calculate(lines);
         assertAsString("281", sum);
     }
     
     @Test
     public void testProd() {
         var lines = readAllLines();
-        var sum   = lines.mapToInt(this::numOf).sum();
+        var sum   = calculate(lines);
         assertAsString("55413", sum);
     }
     

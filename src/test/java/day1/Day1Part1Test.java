@@ -2,20 +2,22 @@ package day1;
 
 import org.junit.Test;
 
-import common.AocCommon;
-import common.Testable;
+import common.BaseTest;
+import functionalj.list.FuncList;
 
-public class Day1Part1Test implements AocCommon, Testable {
+public class Day1Part1Test extends BaseTest {
     
     final String firstDigit = "^[^0-9]*([0-9]).*$";
     final String lastDigit  = "^.*([0-9])[^0-9]*$";
     
-    int numOf(String text) {
-        var digits = digitsOf(text);
-        return Integer.parseInt(digits);
+    int calculate(FuncList<String> lines) {
+        return lines
+                .map     (this::extractDigits)
+                .mapToInt(Integer::parseInt)
+                .sum();
     }
     
-    String digitsOf(String text) {
+    String extractDigits(String text) {
         var first = select(text, firstDigit);
         var last  = select(text, lastDigit);
         return first + last;
@@ -29,16 +31,16 @@ public class Day1Part1Test implements AocCommon, Testable {
     
     @Test
     public void testExample() {
-        var lines = readAllLines();
-        var sum   = lines.mapToInt(this::numOf).sum();
-        assertAsString("142", sum);
+        var lines  = readAllLines();
+        var result = calculate(lines);
+        assertAsString("142", result);
     }
     
     @Test
     public void testProd() {
-        var lines = readAllLines();
-        var sum   = lines.mapToInt(this::numOf).sum();
-        assertAsString("55712", sum);
+        var lines  = readAllLines();
+        var result = calculate(lines);
+        assertAsString("55712", result);
     }
     
 }
